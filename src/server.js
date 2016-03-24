@@ -5,6 +5,7 @@ import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from '../webpack.config';
 import history from'connect-history-api-fallback';
+import lokka from 'lokka';
 
 // Options for the html5 history api fallback
 const historyFallbackOptions = {

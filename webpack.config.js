@@ -8,7 +8,7 @@ module.exports = {
         //'webpack-dev-server/client?http://localhost',
         'webpack-dev-server/client?http://localhost:8082/',
         //'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
-        'webpack/hot/only-dev-server',
+        'webpack/hot/dev-server',
         './web/app'
     ],
     output: {

@@ -55,7 +55,7 @@ let template = (clip) => {
         <html>
         <body>
 
-        This page is for bots/crawlers only.
+        Oh hai, bot.
 
         </body>
         </html>

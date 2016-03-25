@@ -12,7 +12,7 @@ export default class MiniEpisode extends React.Component {
                     style={styles.artwork}
                     src={this.props.episode.podcast.artwork}
                 />
-                <span style={styles.info}><span style={styles.title}>{this.props.episode.title}</span> - {this.props.episode.podcast.name} sadfjhkasf ksjdfh askdjfhas jh </span>
+                <span style={styles.info}><span style={styles.title}>{this.props.episode.title}</span> - {this.props.episode.podcast.name}</span>
             </div>
         );
     }

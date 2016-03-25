@@ -9,6 +9,14 @@ import MiniEpisode from './MiniEpisode';
 @Radium
 class Clip extends React.Component {
 
+    renderFullEpisodeLink() {
+        return <div></div>;
+        return <Link
+                    style={styles.playEpisodeButton}
+                    to={`listen/${this.props.clip.episode.id}`}
+                >Play full episode</Link>;
+    }
+
     render() {
         return (
             <div style={styles.container}>
@@ -17,10 +25,7 @@ class Clip extends React.Component {
                         <Player clip={this.props.clip}/>
                         <ClippedBy user={this.props.clip.user} />
                     </div>
-                    <Link
-                        style={styles.playEpisodeButton}
-                        to={`listen/${this.props.clip.episode.id}`}
-                    >Play full episode</Link>
+                    {this.renderFullEpisodeLink()}
                     <MiniEpisode episode={this.props.clip.episode} />
                 </div>
             </div>
@@ -51,7 +56,8 @@ let styles = {
         flexDirection: 'column',
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        minHeight: 300
     },
     playEpisodeButton: {
         alignSelf: 'stretch',

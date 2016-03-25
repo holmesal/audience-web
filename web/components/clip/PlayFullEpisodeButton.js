@@ -39,7 +39,7 @@ class PlayFullEpisodeButton extends React.Component {
 let styles = {
     button: {
         alignSelf: 'stretch',
-        borderRadius: 6,
+        borderRadius: 4,
         height: 44,
         border: '1px solid',
         display: 'flex',
@@ -47,6 +47,7 @@ let styles = {
         justifyContent: 'center',
         color: '#D8D8D8',
         textDecoration: 'none',
+        flexShrink: 0,
         ':hover': {
             cursor: 'pointer'
         }

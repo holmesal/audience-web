@@ -26,7 +26,9 @@ let styles = {
         flexDirection: 'row',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        marginTop: 32
+        marginTop: 32,
+        marginBottom: 32,
+        flexShrink: 0
     },
     artwork: {
         width: artworkSize,

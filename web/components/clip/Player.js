@@ -46,7 +46,7 @@ class Player extends React.Component {
     }
 
     render() {
-        const audioUrl = `http://s3-us-west-1.amazonaws.com/audience-clips-dev/${this.props.clip.id}.mp3`;
+        const audioUrl = `https://s3-us-west-1.amazonaws.com/${S3_BUCKET}/${this.props.clip.id}.mp3`;
 
         let opacity = this.state.playing ? 1 : (this.state.progress > 0 ? 0.1 : 0);
         return (

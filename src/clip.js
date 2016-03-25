@@ -39,6 +39,7 @@ let template = (clip) => {
           <meta property="og:type"         content="music.song" />
           <meta property="og:title"        content="Clip from ${clip.episode.title}" />
           <meta property="og:audio"        content="${mp3Url}" />
+          <meta property="og:audio:secure_url" content="${mp3Url}">
           <meta property="og:audio:type"   content="audio/vnd.facebook.bridge" />
           <meta property="og:image"        content="${clip.episode.podcast.artwork}" />
 

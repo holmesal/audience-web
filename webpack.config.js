@@ -14,7 +14,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'public'),
         filename: 'app.js',
-        publicPath: '/public/'
+        publicPath: '/'
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),

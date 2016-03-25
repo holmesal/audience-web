@@ -1,11 +1,12 @@
 import express from 'express';
-import {renderClip} from './clip';
+import {renderClipForBots} from './clip';
 import path from 'path';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from '../webpack.config';
 import history from'connect-history-api-fallback';
 import lokka from 'lokka';
+import isBot from 'is-bot';
 
 // Options for the html5 history api fallback
 const historyFallbackOptions = {
@@ -19,30 +20,26 @@ const historyFallbackOptions = {
     ]
 };
 
-let twitterCardMiddleware = (req, res, next) => {
-    if (req.headers['user-agent'] === 'TwitterBot') {
+let botMiddleware = (req, res, next) => {
+    //console.info('got headers: ', req.headers['user-agent']);
+    if (isBot(req.headers['user-agent'])) {
         //console.info('running twitter card middleware!', req.headers);
-        console.info('request came from twitter!');
-        renderClip(req.params.clipId).then(clip => res.end(clip));
+        console.info('request came from a bot!');
+        renderClipForBots(req.params.clipId).then(clip => res.end(clip));
     } else {
         next();
     }
 };
 
 // Hacky - should separate webpac config into dev and production
-if (process.env.NODE_ENV === 'production') {
+if (true || process.env.NODE_ENV === 'production') {
     console.info('serving with static app');
     var app = express();
-    app.use('/public', express.static(path.resolve(__dirname, '../public')));
-    app.use('/clip/:clipId', twitterCardMiddleware);
-    // If the requester is twitter, show them a different page
-    //app.get('/clip/:clipId', (req, res) => {
-    //    console.info('got clip request!', req.params);
-    //    if (req.headers['user-agent'] === 'TwitterBot') {
-    //        console.info('twitter is calling!');
-    //        renderClip(req.params.clipId).then(clip => res.end(clip));
-    //    }
-    //});
+    // Public is a static directory
+    //app.use('/', express.static(path.resolve(__dirname, '../public')));
+    // Handle bots requesting clips
+    app.use('/clip/:clipId', botMiddleware);
+    // History fallback
     app.use(history(historyFallbackOptions));
 
 
@@ -57,8 +54,6 @@ if (process.env.NODE_ENV === 'production') {
         stats: 'errors-only'
     });
 }
-
-app.use('/clip/:clipId', twitterCardMiddleware);
 
 //Serve static resources
 app.use('/', express.static(path.resolve(__dirname, '../public'), {

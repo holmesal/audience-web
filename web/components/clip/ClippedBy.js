@@ -23,7 +23,7 @@ let styles = {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 20
+        marginTop: 40
     },
     text: {
         fontSize: 14,

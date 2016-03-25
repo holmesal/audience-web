@@ -1,33 +1,51 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router';
 import Radium from 'radium';
 import Relay from 'react-relay';
 import Player from './Player';
 import ClippedBy from './ClippedBy';
 import MiniEpisode from './MiniEpisode';
+import BackgroundBlur from '../episode/BackgroundBlur';
+import PlayFullEpisodeButton from './PlayFullEpisodeButton';
+import { Motion, spring } from 'react-motion';
 
 @Radium
 class Clip extends React.Component {
 
+    state = {
+        completed: false
+    };
+
     renderFullEpisodeLink() {
-        return <div></div>;
-        return <Link
-                    style={styles.playEpisodeButton}
-                    to={`listen/${this.props.clip.episode.id}`}
-                >Play full episode</Link>;
+        //return <div></div>;
+        return
     }
+
+    //componentDidMount() {
+    //    setTimeout(() => {
+    //       this.setState({completed: true})
+    //    }, 2000)
+    //}
+
 
     render() {
         return (
             <div style={styles.container}>
+                <BackgroundBlur podcast={this.props.clip.episode.podcast} />
                 <div style={styles.wrapper}>
                     <div style={styles.main}>
-                        <Player clip={this.props.clip}/>
+                        <Player
+                            clip={this.props.clip}
+                            onComplete={() => this.setState({completed: true})}
+                        />
                         <ClippedBy user={this.props.clip.user} />
                     </div>
-                    {this.renderFullEpisodeLink()}
+                    <PlayFullEpisodeButton
+                        episode={this.props.clip.episode}
+                        drawEyes={this.state.completed}
+                    />
                     <MiniEpisode episode={this.props.clip.episode} />
                 </div>
+
             </div>
         );
     }
@@ -39,17 +57,19 @@ let styles = {
         flex: 1,
         alignSelf: 'stretch',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'column'
     },
     wrapper: {
         display: 'flex',
         flex: 1,
-        alignSelf: 'stretch',
         maxWidth: 296,
+        maxHeight: 500,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingBottom: 28
+        paddingBottom: 28,
+        zIndex: 10
     },
     main: {
         display: 'flex',
@@ -57,18 +77,7 @@ let styles = {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: 300
-    },
-    playEpisodeButton: {
-        alignSelf: 'stretch',
-        borderRadius: 6,
-        height: 44,
-        border: '1px solid #D8D8D8',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#D8D8D8',
-        textDecoration: 'none'
+        minHeight: 300,
     }
 };
 
@@ -83,7 +92,11 @@ export default Relay.createContainer(Clip, {
                 ${Player.getFragment('clip')}
                 episode {
                     id
+                    podcast {
+                        ${BackgroundBlur.getFragment('podcast')}
+                    }
                     ${MiniEpisode.getFragment('episode')}
+                    ${PlayFullEpisodeButton.getFragment('episode')}
                 }
             }
         `

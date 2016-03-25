@@ -10,9 +10,14 @@ import { Motion, spring } from 'react-motion';
 @Radium
 class Player extends React.Component {
 
+    propTypes: {
+      onComplete: React.PropTypes.func
+    }
+
     state = {
         playing: false,
-        progress: 0
+        progress: 0,
+        onComplete: () => {}
     };
 
     togglePlay() {
@@ -43,7 +48,7 @@ class Player extends React.Component {
     render() {
         const audioUrl = `http://s3-us-west-1.amazonaws.com/audience-clips-dev/${this.props.clip.id}.mp3`;
 
-        let opacity = this.state.playing ? 0.25 : (this.state.progress > 0 ? 0.1 : 0);
+        let opacity = this.state.playing ? 1 : (this.state.progress > 0 ? 0.1 : 0);
         return (
             <div
                 style={styles.wrapper}
@@ -53,15 +58,15 @@ class Player extends React.Component {
                     {value => <ProgressLabel
                                 style={Object.assign({}, styles.progress, {opacity: value.opacity})}
                                 progress={value.progress}
-                                size={100}
-                                trackWidth={50}
-                                progressWidth={50}
+                                size={buttonSize + drad}
+                                trackWidth={2}
+                                progressWidth={2}
                                 cornersWidth={0}
                                 strokeWidth={4}
                                 fillColor="transparent"
                                 trailWidth={4}
                                 trackColor="transparent"
-                                progressColor="#D8D8D8"
+                                progressColor="rgba(111,167,209,1)"
                             />
                     }
                 </Motion>
@@ -71,7 +76,10 @@ class Player extends React.Component {
                     ref="audio"
                     onPlay={() => this.setState({playing: true})}
                     onPause={() => this.setState({playing: false})}
-                    onEnded={() => this.setState({playing: false, progress: 0})}
+                    onEnded={() => {
+                        this.props.onComplete();
+                        this.setState({playing: false, progress: 0});
+                    }}
                     onError={() => this.setState({playing: false})}
                     onTimeUpdate={this.handleTimeUpdate.bind(this)}
                     preload
@@ -86,19 +94,24 @@ class Player extends React.Component {
 
 const maskSize = 50;
 const buttonSize = 100;
+const drad = 30;
 let styles = {
     wrapper: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        border: '1px solid #D8D8D8',
+        border: '2px solid #D8D8D8',
         width: buttonSize,
         height: buttonSize,
         borderRadius: buttonSize/2,
-        position: 'relative'
+        position: 'relative',
+        ':hover': {
+            cursor: 'pointer',
+            backgroundColor: 'rgba(62,62,62,0.99)'
+        }
     },
     icon: {
-        fontSize: 34,
+        fontSize: 40,
         color: '#D8D8D8'
     },
     iconLayer: {
@@ -115,17 +128,17 @@ let styles = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(62,62,62,0.90)',
+        backgroundColor: 'rgba(62,62,62,0)',
         width: maskSize,
         height: maskSize,
         borderRadius: maskSize / 2
     },
     progress: {
         position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
+        top: -drad/2,
+        left: -drad/2,
+        bottom: -drad/2,
+        right: -drad/2,
     },
     mask: {
         position: 'absolute',
@@ -135,7 +148,7 @@ let styles = {
         height: maskSize,
         marginLeft: -maskSize/2,
         marginTop: -maskSize/2,
-        backgroundColor: 'red',
+        //backgroundColor: 'red',
         zIndex: -1
     }
 };

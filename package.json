@@ -24,6 +24,7 @@
     "babel-preset-stage-0": "6.3.13",
     "babel-relay-plugin": "0.6.3",
     "bluebird": "^3.2.2",
+    "chroma-js": "^1.1.1",
     "connect-history-api-fallback": "^1.1.0",
     "cors": "^2.7.1",
     "dot": "^1.0.3",

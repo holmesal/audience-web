@@ -29,7 +29,7 @@ const query = `
 
 
 let template = (clip) => {
-    const mp3Url = `http://s3-us-west-1.amazonaws.com/${S3_BUCKET}/${clip.id}.mp3`;
+    const mp3Url = `https://s3-us-west-1.amazonaws.com/${S3_BUCKET}/${clip.id}.mp3`;
     return `
         <!DOCTYPE html>
         <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# music: http://ogp.me/ns/music#">

@@ -61,7 +61,7 @@ var botMiddleware = function botMiddleware(req, res, next) {
 };
 
 // Hacky - should separate webpac config into dev and production
-if (true || process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     console.info('serving with static app');
     var app = (0, _express2.default)();
     // Public is a static directory

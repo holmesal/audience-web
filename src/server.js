@@ -32,7 +32,7 @@ let botMiddleware = (req, res, next) => {
 };
 
 // Hacky - should separate webpac config into dev and production
-if (true || process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     console.info('serving with static app');
     var app = express();
     // Public is a static directory

@@ -38,6 +38,8 @@ let template = (clip) => {
           <meta property="fb:app_id"       content="929053407186638" />
           <meta property="og:type"         content="music.song" />
           <meta property="og:title"        content="Clip from ${clip.episode.title}" />
+          <meta property="og:audio"        content="${mp3Url}" />
+          <meta property="og:audio:type"   content="audio/vnd.facebook.bridge" />
           <meta property="og:image"        content="${clip.episode.podcast.artwork}" />
 
           <meta name="twitter:card" content="player">

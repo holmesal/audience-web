@@ -6,7 +6,7 @@ import Radium from 'radium';
 export default class ClippedBy extends React.Component {
 
     render() {
-        const photoUrl = `http://graph.facebook.com/v2.5/${this.props.user.facebookId}/picture?type=square&height=${photoSize * 2}`;
+        const photoUrl = `https://graph.facebook.com/v2.5/${this.props.user.facebookId}/picture?type=square&height=${photoSize * 2}`;
         return (
             <div style={styles.wrapper}>
                 <div style={[styles.profilePhoto, {backgroundImage: `url(${photoUrl})`}]}></div>

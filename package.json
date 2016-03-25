@@ -10,7 +10,8 @@
     "build-web": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "build-server": "babel src -d dist",
     "watch": "npm-watch",
-    "logs": "heroku logs -t"
+    "logs": "heroku logs -t",
+    "logs-staging": "heroku logs -t --app podcastfoo-web-staging"
   },
   "watch": {
     "build-server": "src/**/*.js"

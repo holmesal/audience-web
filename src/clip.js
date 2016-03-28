@@ -46,7 +46,7 @@ let template = (clip) => {
           <meta name="twitter:card" content="player">
           <meta name="twitter:site" content="@audienceam">
           <meta name="twitter:title" content="Clip from ${clip.episode.title}">
-          <meta name="twitter:description" content="Clipped by ${clip.user.displayName} on Audience">
+          <meta name="twitter:description" content="Clipped by ${clip.user.displayName} on Chorus">
           <meta name="twitter:image" content="${clip.episode.podcast.artwork}">
           <meta name="twitter:player" content="https://yoursite.com/container.html">
           <meta name="twitter:player:width" content="480">

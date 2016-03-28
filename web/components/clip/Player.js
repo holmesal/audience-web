@@ -46,7 +46,7 @@ class Player extends React.Component {
     }
 
     render() {
-        const audioUrl = `https://s3-us-west-1.amazonaws.com/${S3_BUCKET}/${this.props.clip.id}.m4a`;
+        const audioUrl = `https://s3-us-west-1.amazonaws.com/${S3_BUCKET}/${this.props.clip.id}.mp3`;
 
         let opacity = this.state.playing ? 1 : (this.state.progress > 0 ? 0.1 : 0);
         return (
@@ -83,7 +83,8 @@ class Player extends React.Component {
                     onError={() => this.setState({playing: false})}
                     onTimeUpdate={this.handleTimeUpdate.bind(this)}
                     preload
-                    autoplay
+                    autoPlay
+                    loop
                 >
                     <source src={audioUrl} type="audio/mpeg" />
                     Your browser does not support the audio element.

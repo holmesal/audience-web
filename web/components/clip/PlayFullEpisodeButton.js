@@ -17,6 +17,7 @@ class PlayFullEpisodeButton extends React.Component {
     };
 
     render() {
+        return <View />;
         let progress = this.props.drawEyes ? 1 : 0;
         return (
             <Motion defaultStyle={{progress: 0}} style={{progress: spring(progress, {stiffness: 247, damping: 50})}}>

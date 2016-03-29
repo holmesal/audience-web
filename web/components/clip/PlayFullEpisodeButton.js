@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import Radium from 'radium';
-import { Link } from 'react-router';
+import LinkButton from '../common/LinkButton';
 import { Motion, spring } from 'react-motion';
 import chroma from 'chroma-js';
 
@@ -17,21 +17,20 @@ class PlayFullEpisodeButton extends React.Component {
     };
 
     render() {
-        return <View />;
         let progress = this.props.drawEyes ? 1 : 0;
         return (
             <Motion defaultStyle={{progress: 0}} style={{progress: spring(progress, {stiffness: 247, damping: 50})}}>
-                {({progress}) => <Link
-                            style={Object.assign({}, styles.button, {
+                {({progress}) => <LinkButton
+                            style={{
                                 transform: `translateY(-${progress * 5}px) rotate(-0.0000000001deg)`,
                                 backgroundColor: chroma.interpolate('rgba(0,0,0,0)', 'rgba(80,171,241,0.95)', progress).css(),
                                 borderColor: chroma.interpolate('rgba(216,216,216,0.6)', 'rgba(80,171,241,0.95)', progress).css(),
                                 color: chroma.interpolate('#D8D8D8', '#FEFEFE', progress),
-                            })}
-                            to={`listen/${this.props.episode.id}`}
+                            }}
+                            to={`/listen/${this.props.episode.id}`}
                         >
                             Play full episode
-                        </Link>}
+                        </LinkButton>}
             </Motion>
         );
     }

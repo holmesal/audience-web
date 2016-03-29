@@ -1,21 +1,29 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router';
+import LinkButton from './common/LinkButton';
 
 export default class Landing extends Component {
 
     render() {
         return (
-            <div style={style.wrapper}>
+            <div style={styles.wrapper}>
                 <p>A wild Audience appears!</p>
-                <p><a href="http://eepurl.com/bQ7mC5">Join the Beta</a></p>
+                <LinkButton to="http://pfoo.herokuapp.com" style={styles.button}>Join the Beta</LinkButton>
             </div>
         );
     }
 }
 
-let style = {
+let styles = {
     wrapper: {
         display: 'flex',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
         flexDirection: 'column'
+    },
+    button: {
+        alignSelf: 'none',
+        paddingLeft: 20,
+        paddingRight: 20
     }
 };

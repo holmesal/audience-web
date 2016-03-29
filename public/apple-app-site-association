@@ -4,7 +4,7 @@
     "details": [
       {
         "appID": "SQ4LKA86HJ.com.alonsoholmes.audience",
-        "paths": [ "*", "/"]
+        "paths": ["/listen/*"]
       }
     ]
   }

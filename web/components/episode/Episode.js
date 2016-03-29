@@ -6,26 +6,32 @@ import EpisodeCard from './EpisodeCard';
 import BackgroundBlur from './BackgroundBlur';
 
 @Radium
-class SharedEpisode extends Component {
+class Episode extends Component {
+
+    renderSharedBy() {
+        const avatarUrl = `http://graph.facebook.com/v2.5/${this.props.user.facebookId}/picture?type=square&height=168`;
+        return (
+            <div>
+                <img style={styles.avatar} src={avatarUrl} />
+                <span style={styles.action}><span style={{fontWeight: 600}}>{this.props.user.displayName}</span><br />shared an episode with you:</span>
+            </div>
+        )
+    }
 
     render() {
-        const avatarUrl = `http://graph.facebook.com/v2.5/${this.props.user.facebookId}/picture?type=square&height=168`;
         return (
             <div style={styles.wrapper}>
                 <BackgroundBlur
-                    podcast={this.props.podcast}
+                    podcast={this.props.episode.podcast}
                 />
                 <div style={styles.card}>
-                    <img style={styles.avatar} src={avatarUrl} />
-                    <span style={styles.action}><span style={{fontWeight: 600}}>{this.props.user.displayName}</span><br />shared an episode with you:</span>
-
                     <EpisodeCard
                         episode={this.props.episode}
-                        podcast={this.props.podcast}
+                        podcast={this.props.episode.podcast}
                     />
 
                     <span style={styles.prompt}>To listen, visit this page on an iOS device with the Audience app installed.</span>
-                    <a style={styles.button} target="_blank" href="http://eepurl.com/bQ7mC5">I don't have the app</a>
+                    <a style={styles.button} target="_blank" href="http://pfoo.herokuapp.com">I don't have the app</a>
                 </div>
             </div>
         );
@@ -104,24 +110,22 @@ let styles = {
     }
 };
 
-export default Relay.createContainer(SharedEpisode, {
+export default Relay.createContainer(Episode, {
     fragments: {
         episode: () => Relay.QL`
             fragment on Episode {
                 ${EpisodeCard.getFragment('episode')}
-            }
-        `,
-        podcast: () => Relay.QL`
-            fragment on Podcast {
-                ${EpisodeCard.getFragment('podcast')}
-                ${BackgroundBlur.getFragment('podcast')}
-            }
-        `,
-        user: () => Relay.QL`
-            fragment on User {
-                displayName
-                facebookId
+                podcast {
+                    ${EpisodeCard.getFragment('podcast')}
+                    ${BackgroundBlur.getFragment('podcast')}
+                }
             }
         `
+        //user: () => Relay.QL`
+        //    fragment on User {
+        //        displayName
+        //        facebookId
+        //    }
+        //`
     }
 });

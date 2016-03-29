@@ -6,8 +6,9 @@ import {
 
 import Application from './components/Application';
 import Landing from './components/Landing';
-import SharedEpisode from './components/episode/SharedEpisode';
+import SharedEpisode from './components/episode/Episode';
 import Clip from './components/clip/Clip';
+import Episode from './components/episode/Episode';
 
 const sharedEpisodeQueries = {
     podcast: () => Relay.QL`query { node(id: $podcastId) }`,
@@ -19,6 +20,10 @@ const clipQueries = {
     clip: () => Relay.QL`query { node(id: $clipId) }`
 };
 
+const episodeQueries = {
+    episode: () => Relay.QL`query { node(id: $episodeId) }`
+};
+
 export default (
     <Route path="/" component={Application}>
         <IndexRoute
@@ -28,6 +33,11 @@ export default (
             path="/clip/:clipId"
             component={Clip}
             queries={clipQueries}
+        />
+        <Route
+            path="/listen/:episodeId"
+            component={Episode}
+            queries={episodeQueries}
         />
         <Route
             path="/:podcastId/:episodeId/:userId"

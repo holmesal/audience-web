@@ -4,6 +4,7 @@ import Radium from 'radium';
 import LinkButton from '../common/LinkButton';
 import { Motion, spring } from 'react-motion';
 import chroma from 'chroma-js';
+import MobileDetect from 'mobile-detect';
 
 @Radium
 class PlayFullEpisodeButton extends React.Component {
@@ -18,6 +19,7 @@ class PlayFullEpisodeButton extends React.Component {
 
     render() {
         let progress = this.props.drawEyes ? 1 : 0;
+        const iPhone = new MobileDetect(window.navigator.userAgent).is('iPhone');
         return (
             <Motion defaultStyle={{progress: 0}} style={{progress: spring(progress, {stiffness: 247, damping: 50})}}>
                 {({progress}) => <LinkButton
@@ -30,7 +32,7 @@ class PlayFullEpisodeButton extends React.Component {
                             to={`/listen/${this.props.episode.id}`}
                             forcePageReload
                         >
-                            Play full episode
+                        {iPhone ? 'Hold to p' : 'P'}lay full episode
                         </LinkButton>}
             </Motion>
         );

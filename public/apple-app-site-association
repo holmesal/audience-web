@@ -7,5 +7,10 @@
         "paths": ["/listen/*"]
       }
     ]
+  },
+  "activitycontinuation": {
+    "apps": [
+      "SQ4LKA86HJ.com.alonsoholmes.audience"
+    ]
   }
 }

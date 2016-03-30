@@ -28,6 +28,7 @@ class PlayFullEpisodeButton extends React.Component {
                                 color: chroma.interpolate('#D8D8D8', '#FEFEFE', progress),
                             }}
                             to={`/listen/${this.props.episode.id}`}
+                            forcePageReload
                         >
                             Play full episode
                         </LinkButton>}

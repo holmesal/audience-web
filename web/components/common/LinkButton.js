@@ -5,9 +5,24 @@ import { Link } from 'react-router';
 @Radium
 export default class LinkButton extends React.Component {
 
+    static defaultProps = {
+        forcePageReload: false
+    };
+
+    handleTransition(ev) {
+        if (this.props.forcePageReload) {
+            window.location = `${window.location.origin}${this.props.to}`;
+            ev.preventDefault();
+        }
+    }
+
     render() {
         return (
-            <Link {...this.props} style={Object.assign({}, styles.button, this.props.style)}>
+            <Link
+                {...this.props}
+                style={Object.assign({}, styles.button, this.props.style)}
+                onClick={this.handleTransition.bind(this)}
+            >
                 {this.props.children}
             </Link>
         );

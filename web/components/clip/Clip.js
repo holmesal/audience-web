@@ -26,6 +26,12 @@ class Clip extends React.Component {
     //    }, 2000)
     //}
 
+    renderAnnotation() {
+        if (this.props.clip.annotation) {
+            return <p>"{this.props.clip.annotation.text}"</p>
+        }
+    }
+
 
     render() {
         return (
@@ -38,6 +44,7 @@ class Clip extends React.Component {
                             onComplete={() => this.setState({completed: true})}
                         />
                         <ClippedBy user={this.props.clip.user} />
+                        {this.renderAnnotation()}
                     </div>
                     <PlayFullEpisodeButton
                         episode={this.props.clip.episode}
@@ -90,6 +97,9 @@ export default Relay.createContainer(Clip, {
                     ${ClippedBy.getFragment('user')}
                 }
                 ${Player.getFragment('clip')}
+                annotation {
+                    text
+                }
                 episode {
                     id
                     podcast {
